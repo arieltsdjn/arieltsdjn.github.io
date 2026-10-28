@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portofolio | Ariel Timotius Sudjana</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #1E63F0;
+      --on-primary: #FFFFFF;
+      --primary-container: #D8E4FF;
+      --on-primary-container: #001A41;
+      --secondary: #3D6BBE;
+      --secondary-container: #D6E3FF;
+      --on-secondary-container: #001B3D;
+      --tertiary: #00A6C7;
+      --tertiary-container: #B8EEFF;
+      --on-tertiary-container: #001F28;
+      --surface: #F5F8FF;
+      --surface-container-low: #EDF2FD;
+      --surface-container: #E6EDFA;
+      --surface-container-high: #DDE6F6;
+      --on-surface: #101828;
+      --on-surface-variant: #44506A;
+      --outline: #7A87A3;
+      --outline-variant: #C7D2E6;
+      --glass: rgba(255,255,255,.55);
+      --glass-border: rgba(255,255,255,.7);
+      --radius-md: 20px;
+      --radius-lg: 28px;
+      --radius-xl: 36px;
+      --elev-2: 0 2px 8px rgba(16,40,90,.12);
+      --elev-3: 0 16px 40px rgba(16,40,90,.2);
+      --ease: cubic-bezier(0.2, 0, 0, 1);
+      --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+      --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --primary: #8AB4FF;
+        --on-primary: #002D6E;
+        --primary-container: #00428F;
+        --on-primary-container: #D8E4FF;
+        --secondary: #B3C8F5;
+        --secondary-container: #223E6E;
+        --on-secondary-container: #D6E3FF;
+        --tertiary: #5FD9F5;
+        --tertiary-container: #004E5E;
+        --on-tertiary-container: #B8EEFF;
+        --surface: #0B1020;
+        --surface-container-low: #101829;
+        --surface-container: #151F35;
+        --surface-container-high: #1D2944;
+        --on-surface: #E4EBFA;
+        --on-surface-variant: #B3BDD3;
+        --outline: #7E8AA6;
+        --outline-variant: #2A3754;
+        --glass: rgba(21,31,53,.55);
+        --glass-border: rgba(138,180,255,.18);
+        --elev-2: 0 2px 10px rgba(0,0,0,.4);
+        --elev-3: 0 16px 40px rgba(0,0,0,.55);
+      }
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--surface); color: var(--on-surface); overflow-x: hidden; }
+    h1, h2, h3, h4, h5, h6 { font-weight: 800; letter-spacing: -0.02em; }
+    .mono { font-family: var(--mono); }
+    .material-symbols-rounded { vertical-align: middle; line-height: 1; }
+    section { padding: 110px 0; position: relative; }
+    .text-muted-md { color: var(--on-surface-variant) !important; }
+
+    /* ---------- Latar ---------- */
+    .bg-scene { position: fixed; inset: 0; z-index: -2; overflow: hidden; background: var(--surface); }
+    .blob {
+      position: absolute; border-radius: 50%; filter: blur(90px); opacity: .55;
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+    .blob.b1 { width: 520px; height: 520px; background: var(--primary); top: -140px; left: -120px; }
+    .blob.b2 { width: 460px; height: 460px; background: var(--tertiary); bottom: -120px; right: -100px; animation-delay: -7s; }
+    .blob.b3 { width: 300px; height: 300px; background: var(--secondary); top: 40%; left: 55%; animation-delay: -12s; opacity: .35; }
+    @keyframes drift { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(60px,-40px) scale(1.15); } }
+    .bg-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(color-mix(in srgb, var(--primary) 8%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in srgb, var(--primary) 8%, transparent) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse at center, #000 20%, transparent 75%);
+      animation: gridMove 20s linear infinite;
+    }
+    @keyframes gridMove { to { background-position: 48px 48px; } }
+
+    .progress-bar-top {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0;
+      background: linear-gradient(90deg, var(--primary), var(--tertiary));
+      z-index: 1100; box-shadow: 0 0 12px var(--primary);
+    }
+
+    /* ---------- Kursor kustom (gaya Windows 10) ---------- */
+    .cursor-dot, .cursor-ring, .cursor-halo {
+      position: fixed; top: 0; left: 0; pointer-events: none; border-radius: 50%;
+      opacity: 0; transition: opacity .3s;
+    }
+    .cursor-halo {
+      width: 120px; height: 120px; z-index: 1990;
+      background: radial-gradient(circle, rgba(190,225,255,.32) 0%, rgba(120,180,255,.14) 38%, transparent 70%);
+      mix-blend-mode: screen; filter: blur(2px);
+    }
+    .cursor-dot {
+      width: 9px; height: 9px; z-index: 2001;
+      background: #FFFFFF; box-shadow: 0 0 8px #FFFFFF, 0 0 16px var(--primary);
+    }
+    .cursor-ring {
+      width: 40px; height: 40px; z-index: 2000;
+      border: 1.5px solid rgba(255,255,255,.85);
+      background: radial-gradient(circle, rgba(255,255,255,.18), rgba(138,180,255,.05) 60%, transparent 72%);
+      box-shadow: 0 0 10px rgba(138,180,255,.7), inset 0 0 8px rgba(255,255,255,.35);
+      transition: width .35s var(--spring), height .35s var(--spring), background .3s, border-color .3s, opacity .3s;
+    }
+    .cursor-ring.hover {
+      width: 74px; height: 74px;
+      border-color: var(--tertiary);
+      background: radial-gradient(circle, rgba(95,217,245,.25), rgba(95,217,245,.06) 60%, transparent 72%);
+      box-shadow: 0 0 18px rgba(95,217,245,.8), inset 0 0 12px rgba(255,255,255,.4);
+    }
+    .cursor-ring.pressed { width: 28px; height: 28px; }
+    .cursor-ring.show, .cursor-dot.show, .cursor-halo.show { opacity: 1; }
+    @media (pointer: fine) {
+      html.custom-cursor, html.custom-cursor * { cursor: none !important; }
+    }
+    @media (pointer: coarse) {
+      .cursor-dot, .cursor-ring, .cursor-halo { display: none; }
+    }
+
+    /* ---------- Indikator scroll di kanan ---------- */
+    .side-rail {
+      position: fixed; right: 18px; top: 50%; transform: translateY(-50%); z-index: 1020;
+      height: min(62vh, 520px); width: 56px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--surface) 40%, transparent);
+      backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%);
+      border: 1px solid var(--glass-border); box-shadow: var(--elev-2);
+      animation: railIn 1s var(--ease) both;
+    }
+    @keyframes railIn { from { opacity: 0; transform: translate(40px, -50%); } }
+    .rail-track {
+      position: absolute; top: 22px; bottom: 80px; left: 50%; width: 2px; transform: translateX(-50%);
+      background: var(--outline-variant); border-radius: 2px; overflow: hidden;
+    }
+    .rail-fill {
+      position: absolute; top: 0; left: 0; width: 100%; height: 0;
+      background: linear-gradient(var(--primary), var(--tertiary));
+      box-shadow: 0 0 10px var(--primary);
+    }
+    .rail-list {
+      list-style: none; margin: 0; padding: 0;
+      position: absolute; top: 14px; bottom: 80px; left: 0; right: 0;
+      display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+    }
+    .rail-link {
+      display: flex; align-items: center; justify-content: flex-end;
+      text-decoration: none; width: 100%; position: relative;
+    }
+    .rail-node {
+      width: 10px; height: 10px; border-radius: 4px; background: var(--surface);
+      border: 2px solid var(--outline); transition: all .45s var(--spring);
+      margin-left: auto; margin-right: calc(50% - 6px); flex-shrink: 0;
+    }
+    .rail-label {
+      position: absolute; right: 26px; top: 50%; transform: translateY(-50%) translateX(10px);
+      font-family: var(--mono); font-size: .72rem; font-weight: 600; white-space: nowrap;
+      color: var(--on-surface); background: var(--surface-container-high);
+      padding: 5px 10px; border-radius: 10px; box-shadow: var(--elev-2);
+      opacity: 0; pointer-events: none; transition: all .35s var(--ease);
+    }
+    .rail-link:hover .rail-label, .rail-link.active .rail-label { opacity: 1; transform: translateY(-50%) translateX(0); }
+    .rail-link:hover .rail-node { border-color: var(--primary); transform: scale(1.2); }
+    .rail-link.passed .rail-node { background: var(--primary-container); border-color: var(--primary); }
+    .rail-link.active .rail-node {
+      background: var(--primary); border-color: var(--primary); height: 26px; border-radius: 6px;
+      box-shadow: 0 0 0 5px color-mix(in srgb, var(--primary) 22%, transparent), 0 0 16px var(--primary);
+      animation: nodePulse 2.2s ease-in-out infinite;
+    }
+    @keyframes nodePulse { 50% { box-shadow: 0 0 0 9px transparent, 0 0 22px var(--primary); } }
+    .rail-pct {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 66px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .rail-pct .pct-ring { position: relative; width: 44px; height: 44px; }
+    .rail-pct svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .rail-pct circle { fill: none; stroke-width: 3; }
+    .rail-pct .t { stroke: var(--outline-variant); }
+    .rail-pct .b { stroke: var(--primary); stroke-linecap: round; transition: stroke-dashoffset .2s linear; }
+    .rail-pct span {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      font-family: var(--mono); font-size: .6rem; font-weight: 700; color: var(--on-surface);
+    }
+    @media (max-width: 1199.98px) { .side-rail { display: none; } }
+
+    /* ---------- Tombol ---------- */
+    .btn-m3 {
+      border-radius: 999px; padding: 12px 26px; font-weight: 700;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: transform .35s var(--spring), box-shadow .3s, background .3s;
+      border: none; position: relative; overflow: hidden;
+    }
+    .btn-m3:active { transform: scale(.96); }
+    .btn-m3::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.35) 50%, transparent 70%);
+      transform: translateX(-120%); transition: transform .7s var(--ease);
+    }
+    .btn-m3:hover::after { transform: translateX(120%); }
+    .btn-filled { background: var(--primary); color: var(--on-primary); box-shadow: var(--elev-2); }
+    .btn-filled:hover { box-shadow: var(--elev-3); color: var(--on-primary); }
+    .btn-tonal { background: var(--secondary-container); color: var(--on-secondary-container); }
+    .btn-tonal:hover { color: var(--on-secondary-container); }
+    .btn-outlined { background: transparent; color: var(--primary); border: 1.5px solid var(--outline); }
+    .btn-outlined:hover { background: var(--primary-container); color: var(--on-primary-container); }
+    .icon-btn {
+      width: 44px; height: 44px; border-radius: 50%; border: none;
+      background: transparent; color: var(--on-surface-variant);
+      display: inline-grid; place-items: center; transition: background .25s, transform .3s var(--spring);
+    }
+    .icon-btn:hover { background: var(--surface-container-high); transform: rotate(-8deg) scale(1.08); }
+
+    /* ---------- Navbar (blur kaca) ---------- */
+    .navbar-m3 {
+      position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+      width: min(1100px, calc(100% - 32px)); z-index: 1030;
+      background: color-mix(in srgb, var(--surface) 45%, transparent);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      border-radius: 999px; box-shadow: var(--elev-2);
+      padding: 8px 12px 8px 20px; border: 1px solid var(--glass-border);
+      transition: background .3s, box-shadow .3s;
+      animation: navIn .9s var(--ease) both;
+    }
+    @keyframes navIn { from { opacity: 0; transform: translate(-50%, -20px); } }
+    .navbar-m3.scrolled { background: color-mix(in srgb, var(--surface-container) 70%, transparent); box-shadow: var(--elev-3); }
+    .brand-mark {
+      width: 38px; height: 38px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--tertiary));
+      color: var(--on-primary); display: grid; place-items: center;
+      font-family: var(--mono); font-weight: 700; box-shadow: 0 4px 14px color-mix(in srgb, var(--primary) 40%, transparent);
+    }
+    .brand-name { font-family: var(--mono); font-weight: 700; color: var(--on-surface); }
+    .nav-link-m3 {
+      color: var(--on-surface-variant) !important; font-weight: 600;
+      padding: 8px 16px !important; border-radius: 999px; transition: background .25s, color .25s;
+    }
+    .nav-link-m3:hover, .nav-link-m3.active { background: var(--primary-container); color: var(--on-primary-container) !important; }
+    .navbar-toggler { border: none; }
+    .navbar-toggler:focus { box-shadow: none; }
+    .offcanvas { background: var(--surface-container-low); color: var(--on-surface); }
+    .offcanvas .nav-link-m3 { font-size: 1.05rem; padding: 14px 18px !important; margin-bottom: 4px; }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      height: 100vh;
+      height: 100svh;
+      display: flex;
+      align-items: center;
+      padding: 96px 0 24px;
+      overflow: hidden;
+    }
+    .hero-title {
+      font-family: var(--mono);
+      font-size: clamp(2rem, 4.2vw, 3.2rem);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+    }
+    .cursor-block {
+      display: inline-block; width: .55em; height: .9em; background: var(--tertiary);
+      vertical-align: -0.08em; margin-left: 6px; animation: blink 1s steps(2) infinite;
+    }
+    @keyframes blink { to { visibility: hidden; } }
+    .typed-wrap { font-family: var(--mono); font-size: clamp(1rem, 2vw, 1.2rem); }
+    .typed-wrap .prompt { color: var(--tertiary); }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--primary), var(--tertiary), var(--primary));
+      background-size: 200% auto;
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: shimmer 5s linear infinite;
+    }
+    @keyframes shimmer { to { background-position: 200% center; } }
+
+    .section-label {
+      font-family: var(--mono); font-size: .85rem; font-weight: 500; color: var(--primary);
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 10px; background: color-mix(in srgb, var(--primary) 10%, transparent);
+    }
+    .section-label::before { content: "//"; color: var(--tertiary); }
+    .section-title { font-family: var(--mono); font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 700; letter-spacing: -0.03em; }
+
+    /* Panggung foto hero */
+    .photo-stage {
+      position: relative;
+      width: min(440px, 88vw, 56vh);
+      aspect-ratio: 4 / 5;
+      margin: 0 auto;
+      perspective: 1000px;
+    }
+    .photo-tilt { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .4s var(--ease); }
+    .photo-tilt.dragging { transition: transform .12s ease-out; }
+    .photo-frame {
+      position: absolute; inset: 8%; border-radius: var(--radius-xl);
+      background: var(--glass); border: 1px solid var(--glass-border);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 30px 60px rgba(0,30,90,.25);
+      padding: 12px; overflow: hidden;
+      animation: floatY 7s ease-in-out infinite;
+    }
+    @keyframes floatY { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-14px) rotate(.6deg); } }
+    .photo-inner {
+      width: 100%; height: 100%; border-radius: calc(var(--radius-xl) - 12px); overflow: hidden; position: relative;
+      background: linear-gradient(145deg, var(--primary) 0%, var(--tertiary) 100%);
+      display: grid; place-items: center;
+    }
+    .photo-inner img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+    .photo-placeholder { text-align: center; color: #fff; }
+    .photo-placeholder .material-symbols-rounded { font-size: 110px; opacity: .9; }
+    .photo-placeholder small { display: block; font-family: var(--mono); opacity: .85; margin-top: 4px; }
+    .photo-sheen {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,.4) 50%, transparent 65%);
+      transform: translateX(-100%); animation: sheen 5s ease-in-out infinite;
+    }
+    @keyframes sheen { 0%,60% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+    .glass-card {
+      position: absolute; z-index: 2; display: flex; align-items: center; gap: 10px;
+      background: var(--glass); border: 1px solid var(--glass-border);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-radius: 18px; padding: 10px 14px; box-shadow: var(--elev-3);
+      font-family: var(--mono); font-size: .8rem; font-weight: 500; color: var(--on-surface);
+      transition: translate .4s var(--ease);
+    }
+    .glass-card .ico {
+      width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+      background: var(--primary-container); color: var(--on-primary-container);
+    }
+    .glass-card.c1 { top: 2%; right: -4%; animation: bob 5s ease-in-out infinite; }
+    .glass-card.c2 { bottom: 14%; left: -6%; animation: bob 6s ease-in-out infinite -2s; }
+    .glass-card.c3 { top: 46%; right: -10%; animation: bob 7s ease-in-out infinite -4s; }
+    @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .glass-card strong { display: block; font-size: .95rem; font-weight: 700; }
+
+    .ring-wrap { position: absolute; z-index: 1; width: 200px; height: 200px; right: -40px; bottom: -30px; opacity: .8; }
+    .ring-wrap svg { width: 100%; height: 100%; animation: spin 24s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Marquee */
+    .marquee { overflow: hidden; border-block: 1px solid var(--outline-variant); background: var(--surface-container-low); }
+    .marquee-track { display: flex; gap: 48px; width: max-content; padding: 18px 0; animation: marquee 28s linear infinite; }
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+    .marquee-item { font-family: var(--mono); font-weight: 700; font-size: 1.05rem; color: var(--outline); white-space: nowrap; display: flex; align-items: center; gap: 10px; }
+    .marquee-item .material-symbols-rounded { color: var(--primary); }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    /* Statistik */
+    .stat-card {
+      background: var(--surface-container); border-radius: var(--radius-lg);
+      padding: 28px 20px; text-align: center; height: 100%; border: 1px solid var(--outline-variant);
+      transition: transform .45s var(--spring), border-color .3s, box-shadow .3s;
+    }
+    .stat-card:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: var(--elev-3); }
+    .ring { position: relative; width: 84px; height: 84px; margin: 0 auto 10px; }
+    .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .ring circle { fill: none; stroke-width: 6; }
+    .ring .track { stroke: var(--surface-container-high); }
+    .ring .bar { stroke-linecap: round; transition: stroke-dashoffset 1.6s var(--ease); }
+    .ring .ico-center { position: absolute; inset: 0; display: grid; place-items: center; color: var(--tertiary); }
+    .stat-number { font-family: var(--mono); font-size: 2rem; font-weight: 700; color: var(--primary); }
+
+    /* Keahlian */
+    .skill-card-wrap { background: var(--surface-container); border-radius: var(--radius-xl); padding: 40px; border: 1px solid var(--outline-variant); }
+    .progress-m3 { height: 8px; border-radius: 999px; background: var(--surface-container-high); overflow: hidden; }
+    .progress-m3 > div {
+      height: 100%; width: 0; border-radius: 999px;
+      background: linear-gradient(90deg, var(--primary), var(--tertiary));
+      box-shadow: 0 0 10px color-mix(in srgb, var(--primary) 60%, transparent);
+      transition: width 1.4s var(--ease);
+    }
+    .skill-name { font-family: var(--mono); font-weight: 500; }
+
+    /* Proyek */
+    .project-card {
+      background: var(--surface-container-low); border-radius: var(--radius-lg);
+      overflow: hidden; height: 100%; display: flex; flex-direction: column;
+      border: 1px solid var(--outline-variant);
+      transform-style: preserve-3d; will-change: transform;
+      transition: transform .25s ease-out, box-shadow .35s, border-color .35s;
+    }
+    .project-card:hover { box-shadow: var(--elev-3); border-color: var(--primary); }
+    .project-media { height: 200px; position: relative; overflow: hidden; background: var(--primary-container); }
+    .project-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+    .project-card:hover .project-media img { transform: scale(1.06); }
+    .project-placeholder { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; }
+    .project-placeholder::before {
+      content: ""; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(color-mix(in srgb, var(--primary) 14%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in srgb, var(--primary) 14%, transparent) 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+    .project-placeholder .inner { position: relative; color: var(--on-primary-container); }
+    .project-placeholder .material-symbols-rounded { font-size: 64px; transition: transform .6s var(--spring); }
+    .project-card:hover .project-placeholder .material-symbols-rounded { transform: scale(1.15) rotate(-6deg); }
+    .project-placeholder small { display: block; font-family: var(--mono); font-size: .72rem; opacity: .75; margin-top: 6px; }
+    .project-sheen {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,.35) 50%, transparent 60%);
+      transform: translateX(-100%); transition: transform .9s var(--ease);
+    }
+    .project-card:hover .project-sheen { transform: translateX(100%); }
+    .project-body { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
+    .project-title { font-family: var(--mono); font-size: 1.05rem; font-weight: 700; }
+    .tag {
+      font-family: var(--mono); font-size: .72rem; font-weight: 500; padding: 4px 10px; border-radius: 8px;
+      background: var(--secondary-container); color: var(--on-secondary-container);
+    }
+    .project-footer { margin-top: auto; padding-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .project-footer .btn-m3 { padding: 8px 16px; font-size: .88rem; }
+
+    .filter-chip {
+      border: 1px solid var(--outline); background: transparent; color: var(--on-surface-variant);
+      padding: 8px 18px; border-radius: 10px; font-family: var(--mono); font-weight: 500; font-size: .85rem;
+      transition: all .25s; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .filter-chip:hover { border-color: var(--primary); color: var(--primary); }
+    .filter-chip.active { background: var(--primary); color: var(--on-primary); border-color: transparent; box-shadow: var(--elev-2); }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: ""; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px;
+      background: linear-gradient(var(--primary), var(--tertiary));
+      transform-origin: top; transform: scaleY(0); transition: transform 1.6s var(--ease);
+    }
+    .timeline.visible::before { transform: scaleY(1); }
+    .timeline-item { position: relative; margin-bottom: 28px; }
+    .timeline-item::before {
+      content: ""; position: absolute; left: -26px; top: 8px; width: 16px; height: 16px;
+      border-radius: 5px; background: var(--primary); border: 3px solid var(--surface);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 20%, transparent);
+    }
+    .exp-card {
+      background: var(--surface-container); border-radius: var(--radius-md); padding: 22px 26px;
+      border: 1px solid var(--outline-variant); transition: transform .35s var(--spring), border-color .3s;
+    }
+    .exp-card:hover { transform: translateX(10px); border-color: var(--primary); }
+
+    /* Sertifikat */
+    .cert-card {
+      background: var(--surface-container); border-radius: var(--radius-md);
+      padding: 22px; height: 100%; cursor: pointer; border: 1px solid var(--outline-variant);
+      transition: transform .4s var(--spring), border-color .3s, box-shadow .3s;
+    }
+    .cert-card:hover { border-color: var(--primary); transform: translateY(-6px); box-shadow: var(--elev-3); }
+    .cert-icon {
+      width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center;
+      background: var(--primary-container); color: var(--on-primary-container); transition: transform .4s var(--spring);
+    }
+    .cert-card:hover .cert-icon { transform: rotate(-10deg) scale(1.1); }
+    .modal-content {
+      border: none; border-radius: var(--radius-xl); background: var(--surface-container-high);
+      color: var(--on-surface); overflow: hidden;
+    }
+    .modal-cert-hero {
+      height: 150px; display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--primary), var(--tertiary)); color: var(--on-primary);
+    }
+    .modal-cert-hero .material-symbols-rounded { font-size: 68px; }
+    .modal.fade .modal-dialog { transform: translateY(40px) scale(.94); transition: transform .5s var(--spring); }
+    .modal.show .modal-dialog { transform: none; }
+
+    /* Kontak */
+    .contact-panel { background: var(--surface-container); border-radius: var(--radius-xl); padding: 40px; border: 1px solid var(--outline-variant); }
+    .contact-item { display: flex; gap: 14px; align-items: center; padding: 14px; border-radius: 18px; transition: background .25s, transform .3s var(--spring); }
+    .contact-item:hover { background: var(--surface-container-high); transform: translateX(6px); }
+    .contact-icon {
+      width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center;
+      background: var(--primary-container); color: var(--on-primary-container); flex-shrink: 0;
+    }
+
+    /* Field Material: label mengambang, counter di dalam field */
+    .m3-field { position: relative; margin-bottom: 22px; }
+    .m3-field .form-control, .m3-field .form-select {
+      background: var(--surface-container-high); border: 1.5px solid var(--outline);
+      border-radius: 16px; color: var(--on-surface); height: 60px; font-family: var(--sans);
+    }
+    .m3-field .form-select { padding-top: 0; padding-bottom: 0; }
+    .m3-field textarea.form-control { height: auto; min-height: 150px; padding: 26px 16px 34px; resize: vertical; }
+    .m3-field .form-control:focus, .m3-field .form-select:focus { box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 18%, transparent); border-color: var(--primary); }
+    .m3-field .form-control.is-invalid, .m3-field .form-select.is-invalid { border-color: #B3261E; }
+    .m3-field .form-control.is-valid, .m3-field .form-select.is-valid { border-color: #146C2E; }
+    .m3-field label {
+      position: absolute; left: 16px; top: 18px; color: var(--on-surface-variant);
+      pointer-events: none; transition: all .2s var(--ease); transform-origin: left top;
+    }
+    .m3-field .form-control:focus ~ label,
+    .m3-field .form-control:not(:placeholder-shown) ~ label {
+      top: 6px; font-size: .75rem; color: var(--primary); font-weight: 600;
+    }
+    .m3-field .invalid-feedback { padding-left: 4px; }
+    .char-count {
+      position: absolute; right: 16px; bottom: 10px; pointer-events: none;
+      font-family: var(--mono); font-size: .75rem; color: var(--on-surface-variant);
+      background: color-mix(in srgb, var(--surface-container-high) 90%, transparent);
+      padding: 2px 8px; border-radius: 8px;
+    }
+
+    .toast-m3 {
+      background: var(--on-surface); color: var(--surface); border-radius: 16px;
+      padding: 14px 20px; box-shadow: var(--elev-3); font-family: var(--mono); font-size: .9rem;
+    }
+    footer { padding: 40px 0; border-top: 1px solid var(--outline-variant); }
+
+    .fab-top {
+      position: fixed; bottom: 24px; right: 90px; z-index: 1020;
+      width: 56px; height: 56px; border-radius: 18px; border: none;
+      background: var(--primary); color: var(--on-primary);
+      box-shadow: var(--elev-3); opacity: 0; transform: translateY(20px) scale(.8);
+      transition: all .4s var(--spring);
+    }
+    .fab-top.show { opacity: 1; transform: none; }
+    @media (max-width: 1199.98px) { .fab-top { right: 24px; } }
+
+    /* ---------- Animasi muncul per bagian (variasi) ---------- */
+    .reveal { opacity: 1; transform: none; filter: none; }
+    .js .reveal:not(.visible) { opacity: 0; }
+    .js .reveal.rv-up:not(.visible)    { transform: translateY(60px); }
+    .js .reveal.rv-left:not(.visible)  { transform: translateX(-90px); }
+    .js .reveal.rv-right:not(.visible) { transform: translateX(90px); }
+    .js .reveal.rv-zoom:not(.visible)  { transform: scale(.82); filter: blur(12px); }
+    .js .reveal.rv-flip:not(.visible)  { transform: perspective(900px) rotateX(-55deg) translateY(30px); transform-origin: top center; }
+    .js .reveal.rv-rise:not(.visible)  { transform: translateY(100px) rotate(5deg); }
+    .reveal {
+      transition: opacity 1s var(--ease), transform 1.1s var(--spring), filter .9s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: none; filter: none; }
+
+    /* ---------- Responsif & aksesibilitas ---------- */
+    @media (max-width: 991.98px) {
+      section { padding: 80px 0; }
+      .hero { height: auto; min-height: 100svh; padding: 110px 0 60px; }
+      .glass-card { display: none; }
+      .contact-panel, .skill-card-wrap { padding: 28px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .js .reveal:not(.visible) { opacity: 1; transform: none; filter: none; }
+      .timeline::before { transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="bg-scene" aria-hidden="true">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="bg-grid"></div>
+</div>
+<div class="progress-bar-top" id="progressBar"></div>
+
+<div class="cursor-halo" id="cursorHalo" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+<aside class="side-rail" id="sideRail" aria-label="Navigasi bagian">
+  <div class="rail-track"><div class="rail-fill" id="railFill"></div></div>
+  <ul class="rail-list" id="railList"></ul>
+  <div class="rail-pct">
+    <div class="pct-ring">
+      <svg viewBox="0 0 40 40">
+        <circle class="t" cx="20" cy="20" r="16"/>
+        <circle class="b" id="railRing" cx="20" cy="20" r="16" stroke-dasharray="100.53" stroke-dashoffset="100.53"/>
+      </svg>
+      <span id="railPct">0%</span>
+    </div>
+  </div>
+</aside>
+
+<script>
+  /* =========================================================
+     DATA PORTOFOLIO (ganti sesuai data kamu)
+     - photo: nama file foto hero, mis. "foto.jpg" (kosongkan untuk placeholder)
+     - image: nama file gambar proyek, mis. "proyek1.jpg" (kosongkan untuk placeholder)
+     ========================================================= */
+  const DATA = {
+    name: "Ariel Timotius Sudjana",
+    initial: "AT",
+    username: "ariel.timotius",
+    photo: "",
+    role: "Mahasiswa Informatika & Front-End Developer",
+    typed: ["Front-End Developer", "UI/UX Enthusiast", "Problem Solver", "Pembelajar Seumur Hidup"],
+    tagline: "Saya membangun antarmuka web yang rapi, responsif, dan terasa menyenangkan digunakan.",
+    email: "nama@email.com",
+    phone: "+62 812-3456-7890",
+    location: "Makassar, Indonesia",
+    github: "https://github.com/username",
+    linkedin: "https://linkedin.com/in/username",
+    instagram: "https://instagram.com/username",
+    stats: [
+      { value: 12, suffix: "+", label: "Proyek Selesai", icon: "work", pct: 80 },
+      { value: 8,  suffix: "",  label: "Sertifikat", icon: "workspace_premium", pct: 65 },
+      { value: 3,  suffix: "+", label: "Tahun Belajar", icon: "school", pct: 45 },
+      { value: 15, suffix: "",  label: "Teknologi Dikuasai", icon: "code", pct: 90 }
+    ],
+    tech: ["HTML5", "CSS3", "JavaScript", "Bootstrap", "Git", "Figma", "GitHub", "Responsive Design"],
+    about: "Saya mahasiswa Informatika yang tertarik pada pengembangan web dan desain antarmuka. Saya percaya bahwa desain yang baik adalah desain yang tidak terasa rumit bagi penggunanya.",
+    skills: [
+      { name: "HTML & CSS", icon: "html", level: 90 },
+      { name: "JavaScript", icon: "javascript", level: 80 },
+      { name: "Bootstrap", icon: "view_quilt", level: 85 },
+      { name: "UI/UX Figma", icon: "design_services", level: 75 },
+      { name: "Git & GitHub", icon: "commit", level: 70 },
+      { name: "Problem Solving", icon: "psychology", level: 80 }
+    ],
+    projects: [
+      { title: "SalingJaga", desc: "Aplikasi anti-bullying dengan fitur pelaporan dan dukungan anonim, dirancang dengan prinsip Human-Computer Interaction.", category: "UI/UX", tags: ["Figma", "UI/UX", "HCI"], icon: "shield_person", image: "", gradient: "linear-gradient(135deg,#D8E4FF,#B8EEFF)", link: "#", repo: "#" },
+      { title: "Landing Page Kopi", desc: "Landing page toko kopi dengan animasi halus dan menu interaktif yang responsif di semua perangkat.", category: "Web", tags: ["HTML", "CSS", "Bootstrap"], icon: "coffee", image: "", gradient: "linear-gradient(135deg,#CFE3FF,#E6F4FF)", link: "#", repo: "#" },
+      { title: "Todo Pintar", desc: "Aplikasi daftar tugas dengan penyimpanan lokal, filter kategori, dan notifikasi pengingat.", category: "Web", tags: ["JavaScript", "LocalStorage"], icon: "checklist", image: "", gradient: "linear-gradient(135deg,#C9F3FA,#E0FAFF)", link: "#", repo: "#" },
+      { title: "Dashboard Cuaca", desc: "Dashboard data cuaca dengan grafik interaktif dan tampilan adaptif berbasis Material Design.", category: "Web", tags: ["API", "Chart.js"], icon: "partly_cloudy_day", image: "", gradient: "linear-gradient(135deg,#BFD8FF,#DCEBFF)", link: "#", repo: "#" },
+      { title: "Portofolio Desain", desc: "Kumpulan rancangan UI mobile untuk berbagai kebutuhan, dari aplikasi kesehatan hingga e-commerce.", category: "UI/UX", tags: ["Figma", "Prototyping"], icon: "palette", image: "", gradient: "linear-gradient(135deg,#E0ECFF,#CDEFF7)", link: "#", repo: "#" }
+    ],
+    experience: [
+      { year: "2025 - Sekarang", title: "Asisten Praktikum Pemrograman Web", place: "Universitas / Lab Informatika", desc: "Membimbing mahasiswa dalam membangun website responsif dengan HTML, CSS, dan Bootstrap." },
+      { year: "2024", title: "Front-End Developer Magang", place: "Startup Lokal", desc: "Mengembangkan komponen UI dan memperbaiki performa halaman web klien." },
+      { year: "2023", title: "Anggota Himpunan Informatika", place: "Divisi Teknologi", desc: "Mengorganisir workshop coding dan kompetisi desain untuk mahasiswa baru." }
+    ],
+    certificates: [
+      { title: "Responsive Web Design", issuer: "freeCodeCamp", year: "2025", icon: "devices", desc: "Menguasai layout fleksibel, media query, dan desain mobile-first." },
+      { title: "UI/UX Design Fundamentals", issuer: "Coursera", year: "2025", icon: "draw", desc: "Dasar riset pengguna, wireframing, dan prototyping di Figma." },
+      { title: "JavaScript Essentials", issuer: "Dicoding", year: "2024", icon: "javascript", desc: "Pemrograman JavaScript dasar hingga manipulasi DOM dan event." },
+      { title: "Git & Version Control", issuer: "Udemy", year: "2024", icon: "commit", desc: "Pengelolaan repositori, branching, dan kolaborasi tim dengan GitHub." }
+    ]
+  };
+</script>
+
+<nav class="navbar navbar-m3 navbar-expand-lg" id="mainNav">
+  <div class="container-fluid p-0 d-flex align-items-center justify-content-between">
+    <a class="d-flex align-items-center gap-2 text-decoration-none" href="#hero">
+      <div class="brand-mark" id="brandInitial">AT</div>
+      <span class="brand-name d-none d-sm-inline">~/portofolio</span>
+    </a>
+
+    <div class="collapse navbar-collapse" id="navDesktop">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link nav-link-m3" href="#about">Tentang</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-m3" href="#projects">Proyek</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-m3" href="#experience">Pengalaman</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-m3" href="#certificates">Sertifikat</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-m3" href="#contact">Kontak</a></li>
+      </ul>
+    </div>
+
+    <div class="d-flex align-items-center gap-2">
+      <button class="btn btn-m3 btn-filled d-none d-lg-inline-flex py-2" data-bs-toggle="modal" data-bs-target="#profileModal">
+        <span class="material-symbols-rounded">person</span> Profil
+      </button>
+      <button class="navbar-toggler icon-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-label="Buka menu">
+        <span class="material-symbols-rounded">menu</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu" style="width:300px; border-radius: 28px 0 0 28px;">
+  <div class="offcanvas-header">
+    <h5 class="fw-bold mb-0 mono">Menu</h5>
+    <button type="button" class="icon-btn" data-bs-dismiss="offcanvas" aria-label="Tutup">
+      <span class="material-symbols-rounded">close</span>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <nav class="d-flex flex-column">
+      <a class="nav-link nav-link-m3" href="#about" data-bs-dismiss="offcanvas"><span class="material-symbols-rounded me-2">person_outline</span>Tentang</a>
+      <a class="nav-link nav-link-m3" href="#projects" data-bs-dismiss="offcanvas"><span class="material-symbols-rounded me-2">folder_open</span>Proyek</a>
+      <a class="nav-link nav-link-m3" href="#experience" data-bs-dismiss="offcanvas"><span class="material-symbols-rounded me-2">timeline</span>Pengalaman</a>
+      <a class="nav-link nav-link-m3" href="#certificates" data-bs-dismiss="offcanvas"><span class="material-symbols-rounded me-2">workspace_premium</span>Sertifikat</a>
+      <a class="nav-link nav-link-m3" href="#contact" data-bs-dismiss="offcanvas"><span class="material-symbols-rounded me-2">mail</span>Kontak</a>
+    </nav>
+    <button class="btn btn-m3 btn-filled w-100 justify-content-center mt-4" data-bs-toggle="modal" data-bs-target="#profileModal" data-bs-dismiss="offcanvas">
+      <span class="material-symbols-rounded">person</span> Lihat Profil
+    </button>
+  </div>
+</div>
+
+<header class="hero" id="hero">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6 text-center text-lg-start">
+        <div class="section-label reveal rv-up mb-3">hello_world</div>
+        <h1 class="hero-title mt-3 reveal rv-up" id="heroName"></h1>
+        <div class="typed-wrap mt-4 reveal rv-up">
+          <span class="prompt">&gt;</span> <span id="typed"></span><span class="cursor-block"></span>
+        </div>
+        <p class="text-muted-md fs-5 mt-4 mb-4 reveal rv-up" id="heroTagline" style="max-width:520px"></p>
+        <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start reveal rv-up">
+          <a href="#projects" class="btn btn-m3 btn-filled magnetic">
+            <span class="material-symbols-rounded">rocket_launch</span> Lihat Proyek
+          </a>
+          <a href="#contact" class="btn btn-m3 btn-tonal magnetic">
+            <span class="material-symbols-rounded">mail</span> Hubungi Saya
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-6 reveal rv-zoom">
+        <div class="photo-stage" id="photoStage">
+          <div class="ring-wrap" aria-hidden="true">
+            <svg viewBox="0 0 200 200">
+              <defs>
+                <linearGradient id="ringGradHero" x1="0" x2="1">
+                  <stop offset="0" stop-color="#1E63F0"/><stop offset="1" stop-color="#00A6C7"/>
+                </linearGradient>
+              </defs>
+              <circle cx="100" cy="100" r="92" fill="none" stroke="url(#ringGradHero)" stroke-width="2" stroke-dasharray="6 10"/>
+              <circle cx="100" cy="100" r="60" fill="none" stroke="url(#ringGradHero)" stroke-width="1.5" stroke-dasharray="2 8"/>
+            </svg>
+          </div>
+
+          <div class="photo-tilt" id="photoTilt">
+            <div class="photo-frame">
+              <div class="photo-inner" id="photoInner">
+                <div class="photo-placeholder" id="photoPlaceholder">
+                  <span class="material-symbols-rounded">person</span>
+                  <small>foto_kamu.jpg</small>
+                  <small>ganti di DATA.photo</small>
+                </div>
+                <div class="photo-sheen"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card c1" data-depth="0.6">
+            <span class="ico material-symbols-rounded">code</span>
+            <div><strong>Clean Code</strong>rapi &amp; terstruktur</div>
+          </div>
+          <div class="glass-card c2" data-depth="-0.4">
+            <span class="ico material-symbols-rounded">brush</span>
+            <div><strong>Pixel Perfect</strong>detail visual</div>
+          </div>
+          <div class="glass-card c3" data-depth="0.9">
+            <span class="ico material-symbols-rounded">rocket_launch</span>
+            <div><strong id="cardProjects">5+ Proyek</strong>siap dieksplorasi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack"></div>
+</div>
+
+<section class="pt-5" id="stats">
+  <div class="container">
+    <div class="row g-3 g-md-4" id="statsRow"></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-5 reveal">
+        <div class="section-label mb-3">tentang_saya</div>
+        <h2 class="section-title mt-2 mb-3">Desain yang <span class="gradient-text">bernapas</span>, kode yang <span class="gradient-text">rapi</span>.</h2>
+        <p class="text-muted-md fs-5" id="aboutText"></p>
+        <a href="#contact" class="btn btn-m3 btn-tonal mt-2"><span class="material-symbols-rounded">arrow_forward</span> Mari berkolaborasi</a>
+      </div>
+      <div class="col-lg-7">
+        <div class="skill-card-wrap reveal">
+          <h5 class="fw-bold mb-4 d-flex align-items-center gap-2 mono"><span class="material-symbols-rounded" style="color:var(--primary)">bolt</span> skills.json</h5>
+          <div class="row g-4" id="skillsRow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <div class="section-label">proyek_pilihan</div>
+      <h2 class="section-title mt-3">Proyek <span class="gradient-text">pilihan</span></h2>
+      <p class="text-muted-md mx-auto mt-3" style="max-width:600px">Beberapa karya yang saya kerjakan, dari riset pengguna hingga implementasi di browser.</p>
+    </div>
+    <div class="d-flex flex-wrap justify-content-center gap-2 mb-5 reveal" id="filterBar">
+      <button class="filter-chip active" data-filter="Semua"><span class="material-symbols-rounded">apps</span> Semua</button>
+      <button class="filter-chip" data-filter="Web"><span class="material-symbols-rounded">language</span> Web</button>
+      <button class="filter-chip" data-filter="UI/UX"><span class="material-symbols-rounded">design_services</span> UI/UX</button>
+    </div>
+    <div class="row g-4" id="projectGrid"></div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4 reveal">
+        <div class="section-label">perjalanan.log</div>
+        <h2 class="section-title mt-3">Pengalaman <span class="gradient-text">&amp; Organisasi</span></h2>
+        <p class="text-muted-md mt-3">Setiap langkah membentuk cara saya bekerja dan berkolaborasi.</p>
+      </div>
+      <div class="col-lg-8">
+        <div class="timeline" id="timeline"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certificates">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <div class="section-label">sertifikat.db</div>
+      <h2 class="section-title mt-3">Sertifikat <span class="gradient-text">&amp; Pelatihan</span></h2>
+      <p class="text-muted-md mt-3">Klik kartu untuk melihat detail sertifikat.</p>
+    </div>
+    <div class="row g-4" id="certGrid"></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="row g-5 align-items-start">
+      <div class="col-lg-5 reveal">
+        <div class="section-label">kontak</div>
+        <h2 class="section-title mt-3 mb-3">Mari <span class="gradient-text">berbincang</span></h2>
+        <p class="text-muted-md fs-5 mb-4">Punya proyek, ide, atau sekadar ingin menyapa? Isi formulir di samping dan saya akan membalas secepatnya.</p>
+        <div class="d-flex flex-column gap-2">
+          <a class="contact-item text-decoration-none" id="emailLink" href="#">
+            <div class="contact-icon"><span class="material-symbols-rounded">alternate_email</span></div>
+            <div><div class="small text-muted-md">Email</div><div class="fw-semibold" style="color:var(--on-surface)" id="emailText"></div></div>
+          </a>
+          <div class="contact-item">
+            <div class="contact-icon"><span class="material-symbols-rounded">call</span></div>
+            <div><div class="small text-muted-md">Telepon</div><div class="fw-semibold" id="phoneText"></div></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><span class="material-symbols-rounded">location_on</span></div>
+            <div><div class="small text-muted-md">Lokasi</div><div class="fw-semibold" id="locationText"></div></div>
+          </div>
+        </div>
+        <div class="d-flex gap-2 mt-4">
+          <a class="icon-btn" id="ghLink" href="#" target="_blank" rel="noopener" aria-label="GitHub" style="background:var(--surface-container-high)"><span class="material-symbols-rounded">code</span></a>
+          <a class="icon-btn" id="liLink" href="#" target="_blank" rel="noopener" aria-label="LinkedIn" style="background:var(--surface-container-high)"><span class="material-symbols-rounded">work</span></a>
+          <a class="icon-btn" id="igLink" href="#" target="_blank" rel="noopener" aria-label="Instagram" style="background:var(--surface-container-high)"><span class="material-symbols-rounded">photo_camera</span></a>
+        </div>
+      </div>
+
+      <div class="col-lg-7 reveal">
+        <div class="contact-panel">
+          <h4 class="fw-bold mb-1 mono">kirim_pesan()</h4>
+          <p class="text-muted-md mb-4">Semua kolom wajib diisi kecuali nomor telepon.</p>
+          <form id="contactForm" novalidate>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="m3-field">
+                  <input type="text" class="form-control" id="cName" placeholder=" " minlength="3" maxlength="50">
+                  <label for="cName">Nama lengkap</label>
+                  <div class="invalid-feedback">Nama minimal 3 karakter.</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="m3-field">
+                  <input type="email" class="form-control" id="cEmail" placeholder=" ">
+                  <label for="cEmail">Alamat email</label>
+                  <div class="invalid-feedback">Masukkan email yang valid.</div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="m3-field">
+                  <select class="form-select" id="cTopic">
+                    <option value="" selected disabled>Pilih topik</option>
+                    <option>Kerja sama proyek</option>
+                    <option>Lowongan / magang</option>
+                    <option>Diskusi &amp; kolaborasi</option>
+                    <option>Lainnya</option>
+                  </select>
+                  <div class="invalid-feedback">Pilih salah satu topik.</div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="m3-field">
+                  <textarea class="form-control" id="cMessage" placeholder=" " minlength="10" maxlength="500"></textarea>
+                  <label for="cMessage">Pesan kamu</label>
+                  <span class="char-count"><span id="charNow">0</span>/500</span>
+                  <div class="invalid-feedback">Pesan minimal 10 karakter.</div>
+                </div>
+              </div>
+              <div class="col-12 d-flex flex-wrap align-items-center gap-3 justify-content-between">
+                <small class="text-muted-md mono">// data kamu aman, tidak dibagikan</small>
+                <button type="submit" class="btn btn-m3 btn-filled magnetic" id="submitBtn">
+                  <span class="material-symbols-rounded">send</span> <span>Kirim Pesan</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+    <div class="d-flex align-items-center gap-2">
+      <div class="brand-mark" style="width:34px;height:34px;font-size:.85rem" id="footerInitial">AT</div>
+      <span class="fw-semibold mono" id="footerName"></span>
+    </div>
+    <small class="text-muted-md mono">Dibuat dengan Bootstrap 5 &copy; <span id="year"></span></small>
+  </div>
+</footer>
+
+<button class="fab-top" id="toTop" aria-label="Kembali ke atas"><span class="material-symbols-rounded">arrow_upward</span></button>
+
+<div class="modal fade" id="certModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-cert-hero" id="certHero"></div>
+      <div class="modal-body p-4 p-md-5">
+        <span class="tag" id="certYear"></span>
+        <h3 class="fw-bold mt-3 mb-1 mono" id="certTitle"></h3>
+        <p class="text-muted-md mb-3" id="certIssuer"></p>
+        <p class="fs-6" id="certDesc"></p>
+        <div class="d-flex gap-2 mt-4">
+          <button class="btn btn-m3 btn-filled" data-bs-dismiss="modal"><span class="material-symbols-rounded">check</span> Tutup</button>
+          <button class="btn btn-m3 btn-tonal" id="certShare"><span class="material-symbols-rounded">share</span> Bagikan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body p-4 p-md-5 text-center">
+        <div class="brand-mark mx-auto mb-3" style="width:96px;height:96px;border-radius:28px;font-size:2rem">
+          <span id="profInitial"></span>
+        </div>
+        <h4 class="fw-bold mb-1" id="profName"></h4>
+        <p class="text-muted-md mb-4" id="profRole"></p>
+        <ul class="list-unstyled text-start mb-4 mono small">
+          <li class="d-flex align-items-center gap-3 py-2"><span class="material-symbols-rounded" style="color:var(--primary)">mail</span><span id="profEmail"></span></li>
+          <li class="d-flex align-items-center gap-3 py-2"><span class="material-symbols-rounded" style="color:var(--primary)">location_on</span><span id="profLoc"></span></li>
+          <li class="d-flex align-items-center gap-3 py-2"><span class="material-symbols-rounded" style="color:var(--primary)">school</span><span>Informatika</span></li>
+        </ul>
+        <button class="btn btn-m3 btn-filled w-100 justify-content-center" data-bs-dismiss="modal"><span class="material-symbols-rounded">done</span> Oke</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="position-fixed bottom-0 start-50 translate-middle-x mb-4" style="z-index:1100">
+  <div class="toast-m3 d-none align-items-center gap-2" id="toast" role="status">
+    <span class="material-symbols-rounded" style="color:#7DDC8E">task_alt</span>
+    <span id="toastMsg">Pesan terkirim!</span>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.documentElement.classList.add('js');
+
+const $ = (id) => document.getElementById(id);
+const $$ = (sel) => document.querySelectorAll(sel);
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+/* ---------- 1. Animasi muncul saat scroll (variasi per bagian) ---------- */
+const VARIANTS = ['rv-up', 'rv-left', 'rv-zoom', 'rv-flip', 'rv-rise', 'rv-right'];
+
+function animateCount(el) {
+  if (el.dataset.done) return;
+  el.dataset.done = 1;
+  const target = +el.dataset.target, dur = 1400, start = performance.now();
+  const step = (now) => {
+    const p = Math.min((now - start) / dur, 1);
+    el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(en => {
+    if (!en.isIntersecting) return;
+    const el = en.target;
+    el.classList.add('visible');
+    el.querySelectorAll('.counter').forEach(animateCount);
+    el.querySelectorAll('[data-level]').forEach(b => b.style.width = b.dataset.level + '%');
+    el.querySelectorAll('.ring .bar').forEach(b => b.style.strokeDashoffset = b.dataset.offset);
+    if (el.matches('.counter')) animateCount(el);
+    if (el.matches('[data-level]')) el.style.width = el.dataset.level + '%';
+    io.unobserve(el);
+  });
+}, { threshold: 0.12 });
+
+/* Setiap elemen .reveal diberi varian sesuai bagiannya + jeda bertahap */
+function assignVariants() {
+  $$('section, header').forEach((sec, si) => {
+    const variant = VARIANTS[si % VARIANTS.length];
+    sec.querySelectorAll('.reveal').forEach(el => {
+      if (el.dataset.variant) return;
+      el.dataset.variant = variant;
+      el.classList.add(variant);
+      const siblings = el.parentElement ? Array.from(el.parentElement.children) : [];
+      const idx = Math.max(0, siblings.indexOf(el));
+      if (!reduceMotion) el.style.transitionDelay = (Math.min(idx, 6) * 0.12) + 's';
+    });
+  });
+  $$('.timeline-item.reveal').forEach((el, i) => {
+    if (!reduceMotion) el.style.transitionDelay = (i * 0.15) + 's';
+  });
+}
+
+function observeReveal() {
+  assignVariants();
+  $$('.reveal:not(.visible)').forEach(el => io.observe(el));
+}
+
+/* ---------- 2. Isi konten dari DATA ---------- */
+$('heroName').innerHTML = `Halo, saya<br><span class="gradient-text">${DATA.name}</span>`;
+$('heroTagline').textContent = DATA.tagline;
+$('brandInitial').textContent = DATA.initial;
+$('footerInitial').textContent = DATA.initial;
+$('footerName').textContent = DATA.name;
+$('aboutText').textContent = DATA.about;
+$('emailText').textContent = DATA.email;
+$('emailLink').href = `mailto:${DATA.email}`;
+$('phoneText').textContent = DATA.phone;
+$('locationText').textContent = DATA.location;
+$('ghLink').href = DATA.github;
+$('liLink').href = DATA.linkedin;
+$('igLink').href = DATA.instagram;
+$('profInitial').textContent = DATA.initial;
+$('profName').textContent = DATA.name;
+$('profRole').textContent = DATA.role;
+$('profEmail').textContent = DATA.email;
+$('profLoc').textContent = DATA.location;
+$('year').textContent = new Date().getFullYear();
+$('cardProjects').textContent = `${DATA.projects.length}+ Proyek`;
+
+/* Foto hero */
+if (DATA.photo) {
+  const img = new Image();
+  img.src = DATA.photo;
+  img.alt = DATA.name;
+  img.onload = () => { $('photoPlaceholder').style.display = 'none'; $('photoInner').prepend(img); };
+}
+
+/* Marquee teknologi */
+const techHTML = DATA.tech.map(t =>
+  `<div class="marquee-item"><span class="material-symbols-rounded">data_object</span>${t}</div>`).join('');
+$('marqueeTrack').innerHTML = techHTML + techHTML;
+
+/* Statistik dengan cincin progres */
+const R = 36, C = 2 * Math.PI * R;
+$('statsRow').innerHTML = DATA.stats.map((s, i) => `
+  <div class="col-6 col-lg-3 reveal">
+    <div class="stat-card">
+      <div class="ring">
+        <svg viewBox="0 0 84 84">
+          <defs><linearGradient id="ringGrad${i}" x1="0" x2="1"><stop offset="0" stop-color="#1E63F0"/><stop offset="1" stop-color="#00A6C7"/></linearGradient></defs>
+          <circle class="track" cx="42" cy="42" r="${R}"/>
+          <circle class="bar" cx="42" cy="42" r="${R}" stroke="url(#ringGrad${i})"
+            stroke-dasharray="${C}" stroke-dashoffset="${C}" data-offset="${C * (1 - s.pct / 100)}"/>
+        </svg>
+        <div class="ico-center"><span class="material-symbols-rounded">${s.icon}</span></div>
+      </div>
+      <div class="stat-number"><span class="counter" data-target="${s.value}">0</span>${s.suffix}</div>
+      <div class="text-muted-md fw-semibold small">${s.label}</div>
+    </div>
+  </div>`).join('');
+
+/* Keahlian */
+$('skillsRow').innerHTML = DATA.skills.map(s => `
+  <div class="col-md-6 reveal">
+    <div class="d-flex justify-content-between mb-2">
+      <span class="skill-name d-flex align-items-center gap-2"><span class="material-symbols-rounded" style="color:var(--primary);font-size:20px">${s.icon}</span>${s.name}</span>
+      <span class="mono small">${s.level}%</span>
+    </div>
+    <div class="progress-m3"><div data-level="${s.level}"></div></div>
+  </div>`).join('');
+
+/* ---------- 3. Proyek + filter + efek 3D ---------- */
+function projectMedia(p) {
+  if (p.image) return `<img src="${p.image}" alt="${p.title}">`;
+  return `
+    <div class="project-placeholder" style="background:${p.gradient}">
+      <div class="inner">
+        <span class="material-symbols-rounded">${p.icon}</span>
+        <small>gambar 1200 x 675</small>
+      </div>
+    </div>`;
+}
+
+function renderProjects(filter = 'Semua') {
+  const list = DATA.projects.filter(p => filter === 'Semua' || p.category === filter);
+  $('projectGrid').innerHTML = list.map(p => `
+    <div class="col-12 col-md-6 col-lg-4 reveal">
+      <article class="project-card tilt">
+        <div class="project-media">
+          ${projectMedia(p)}
+          <div class="project-sheen"></div>
+        </div>
+        <div class="project-body">
+          <div class="d-flex flex-wrap gap-2 mb-3">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+          <h5 class="project-title mb-2">${p.title}</h5>
+          <p class="text-muted-md small mb-0">${p.desc}</p>
+          <div class="project-footer">
+            <a href="${p.link}" class="btn btn-m3 btn-filled"><span class="material-symbols-rounded">open_in_new</span> Demo</a>
+            <a href="${p.repo}" class="btn btn-m3 btn-outlined"><span class="material-symbols-rounded">code</span> Kode</a>
+          </div>
+        </div>
+      </article>
+    </div>`).join('');
+  observeReveal();
+  bindTilt();
+}
+
+function bindTilt() {
+  if (!finePointer || reduceMotion) return;
+  $$('.tilt').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5;
+      const y = (e.clientY - r.top) / r.height - .5;
+      card.style.transform = `perspective(900px) rotateX(${-y * 8}deg) rotateY(${x * 8}deg) translateY(-8px)`;
+    });
+    card.addEventListener('mouseleave', () => card.style.transform = '');
+  });
+}
+
+renderProjects();
+
+$$('#filterBar .filter-chip').forEach(btn => {
+  btn.addEventListener('click', () => {
+    $$('#filterBar .filter-chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderProjects(btn.dataset.filter);
+  });
+});
+
+/* ---------- 4. Pengalaman ---------- */
+$('timeline').innerHTML = DATA.experience.map((e) => `
+  <div class="timeline-item reveal">
+    <div class="exp-card">
+      <span class="tag">${e.year}</span>
+      <h5 class="fw-bold mt-2 mb-1">${e.title}</h5>
+      <div class="text-muted-md small fw-semibold mb-2">${e.place}</div>
+      <p class="mb-0 small">${e.desc}</p>
+    </div>
+  </div>`).join('');
+
+/* ---------- 5. Sertifikat + modal ---------- */
+const palette = ['var(--primary-container)', 'var(--tertiary-container)', 'var(--secondary-container)', 'var(--surface-container-high)'];
+$('certGrid').innerHTML = DATA.certificates.map((c, i) => `
+  <div class="col-12 col-sm-6 col-lg-3 reveal">
+    <div class="cert-card" data-cert="${i}" tabindex="0" role="button">
+      <div class="cert-icon mb-3" style="background:${palette[i % palette.length]}"><span class="material-symbols-rounded">${c.icon}</span></div>
+      <h6 class="fw-bold mb-1">${c.title}</h6>
+      <div class="small text-muted-md mono">${c.issuer} &middot; ${c.year}</div>
+      <div class="mt-3 small fw-semibold mono" style="color:var(--primary)">Lihat detail &rarr;</div>
+    </div>
+  </div>`).join('');
+
+let currentCert = null;
+function openCert(c) {
+  currentCert = c;
+  $('certHero').innerHTML = `<span class="material-symbols-rounded">${c.icon}</span>`;
+  $('certYear').textContent = c.year;
+  $('certTitle').textContent = c.title;
+  $('certIssuer').textContent = `Diterbitkan oleh ${c.issuer}`;
+  $('certDesc').textContent = c.desc;
+  bootstrap.Modal.getOrCreateInstance($('certModal')).show();
+}
+$$('.cert-card').forEach(card => {
+  const open = () => openCert(DATA.certificates[card.dataset.cert]);
+  card.addEventListener('click', open);
+  card.addEventListener('keydown', e => { if (e.key === 'Enter') open(); });
+});
+$('certShare').addEventListener('click', async () => {
+  const text = `Saya telah menyelesaikan ${currentCert.title} dari ${currentCert.issuer}!`;
+  if (navigator.share) { try { await navigator.share({ text }); } catch {} }
+  else { navigator.clipboard?.writeText(text); showToast('Teks disalin ke clipboard'); }
+});
+
+/* ---------- 6. Efek mengetik ---------- */
+(function typing() {
+  const el = $('typed');
+  let w = 0, c = 0, del = false;
+  (function tick() {
+    const word = DATA.typed[w % DATA.typed.length];
+    if (!del) {
+      el.textContent = word.slice(0, ++c);
+      if (c === word.length) { del = true; return setTimeout(tick, 1600); }
+    } else {
+      el.textContent = word.slice(0, --c);
+      if (c === 0) { del = false; w++; }
+    }
+    setTimeout(tick, del ? 45 : 90);
+  })();
+})();
+
+/* ---------- 7. Indikator scroll di kanan ---------- */
+const nav = $('mainNav');
+const toTop = $('toTop');
+const progress = $('progressBar');
+const sections = $$('section[id], header[id]');
+const navLinks = $$('#navDesktop .nav-link');
+const railLabels = { hero: 'beranda', about: 'tentang', projects: 'proyek', experience: 'pengalaman', certificates: 'sertifikat', contact: 'kontak', stats: 'statistik' };
+
+$('railList').innerHTML = Array.from(sections).map((s, i) => `
+  <li>
+    <a class="rail-link" href="#${s.id}" data-id="${s.id}">
+      <span class="rail-label">${String(i + 1).padStart(2, '0')} / ${railLabels[s.id] || s.id}</span>
+      <span class="rail-node"></span>
+    </a>
+  </li>`).join('');
+const railLinks = $$('.rail-link');
+const railFill = $('railFill');
+const railRing = $('railRing');
+const railPct = $('railPct');
+
+const photoStage = $('photoStage');
+const photoTilt = $('photoTilt');
+const glassCards = $$('.glass-card');
+const ringWrap = document.querySelector('.ring-wrap');
+
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = max > 0 ? y / max : 0;
+
+  progress.style.width = (pct * 100) + '%';
+  railFill.style.height = (pct * 100) + '%';
+  railRing.style.strokeDashoffset = 100.53 * (1 - pct);
+  railPct.textContent = Math.round(pct * 100) + '%';
+
+  nav.classList.toggle('scrolled', y > 40);
+  toTop.classList.toggle('show', y > 500);
+
+  let current = '';
+  sections.forEach(s => { if (y >= s.offsetTop - 200) current = s.id; });
+  navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current));
+
+  let passed = true;
+  railLinks.forEach(l => {
+    const isActive = l.dataset.id === current;
+    l.classList.toggle('active', isActive);
+    if (isActive) passed = false;
+    l.classList.toggle('passed', passed && !isActive);
+  });
+
+  if (!reduceMotion && y < 900) {
+    glassCards.forEach(c => {
+      const d = parseFloat(c.dataset.depth);
+      c.style.marginTop = (-y * d * 0.25) + 'px';
+    });
+    if (ringWrap) ringWrap.style.transform = `rotate(${y * 0.15}deg)`;
+  }
+}, { passive: true });
+toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+/* ---------- 8. Kursor kustom (tanpa delay) ---------- */
+const ring = $('cursorRing');
+const dot = $('cursorDot');
+const halo = $('cursorHalo');
+const interactiveSel = 'a, button, select, input, textarea, .cert-card, .filter-chip, .photo-stage, .project-card';
+
+if (finePointer && !reduceMotion) {
+  document.documentElement.classList.add('custom-cursor');
+
+  window.addEventListener('mousemove', e => {
+    const x = e.clientX;
+    const y = e.clientY;
+    const dHalf = dot.offsetWidth / 2;
+    const rHalf = ring.offsetWidth / 2;
+    const hHalf = halo.offsetWidth / 2;
+
+    dot.style.transform = `translate(${x - dHalf}px, ${y - dHalf}px)`;
+    ring.style.transform = `translate(${x - rHalf}px, ${y - rHalf}px)`;
+    halo.style.transform = `translate(${x - hHalf}px, ${y - hHalf}px)`;
+
+    ring.classList.add('show');
+    dot.classList.add('show');
+    halo.classList.add('show');
+  }, { passive: true });
+
+  document.addEventListener('mouseover', e => {
+    ring.classList.toggle('hover', !!e.target.closest(interactiveSel));
+  });
+  document.addEventListener('mousedown', () => ring.classList.add('pressed'));
+  document.addEventListener('mouseup', () => ring.classList.remove('pressed'));
+  document.addEventListener('mouseleave', () => {
+    ring.classList.remove('show');
+    dot.classList.remove('show');
+    halo.classList.remove('show');
+  });
+}
+
+/* ---------- 9. Foto hero: tilt 3D, makin miring saat ditekan ---------- */
+let lastX = 0, lastY = 0, pressed = false, inside = false;
+
+function applyPhotoTilt() {
+  const strength = pressed ? 26 : 14;
+  const scale = pressed ? 0.95 : 1.02;
+  photoTilt.style.transform =
+    `perspective(900px) rotateX(${-lastY * strength}deg) rotateY(${lastX * strength}deg) scale(${scale})`;
+}
+
+if (finePointer && !reduceMotion) {
+  photoStage.addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse') return;
+    const r = photoStage.getBoundingClientRect();
+    lastX = (e.clientX - r.left) / r.width - .5;
+    lastY = (e.clientY - r.top) / r.height - .5;
+    inside = true;
+    photoTilt.classList.add('dragging');
+    applyPhotoTilt();
+  });
+  photoStage.addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'mouse') return;
+    pressed = true;
+    photoTilt.classList.add('dragging');
+    applyPhotoTilt();
+  });
+  window.addEventListener('pointerup', () => {
+    if (!pressed) return;
+    pressed = false;
+    if (inside) applyPhotoTilt();
+    photoTilt.classList.remove('dragging');
+  });
+  photoStage.addEventListener('pointerleave', () => {
+    inside = false;
+    pressed = false;
+    photoTilt.classList.remove('dragging');
+    photoTilt.style.transform = '';
+  });
+}
+
+/* Tombol magnetik */
+if (finePointer && !reduceMotion) {
+  $$('.magnetic').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const r = btn.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width / 2;
+      const y = e.clientY - r.top - r.height / 2;
+      btn.style.transform = `translate(${x * 0.2}px, ${y * 0.3}px)`;
+    });
+    btn.addEventListener('mouseleave', () => btn.style.transform = '');
+  });
+}
+
+/* ---------- 10. Form kontak + validasi ---------- */
+const form = $('contactForm');
+const fields = { name: $('cName'), email: $('cEmail'), topic: $('cTopic'), message: $('cMessage') };
+const rules = {
+  name:    v => v.trim().length >= 3,
+  email:   v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()),
+  topic:   v => v !== '',
+  message: v => v.trim().length >= 10
+};
+
+function validateField(key) {
+  const el = fields[key];
+  const ok = rules[key](el.value);
+  el.classList.toggle('is-valid', ok);
+  el.classList.toggle('is-invalid', !ok);
+  return ok;
+}
+
+Object.keys(fields).forEach(key => {
+  fields[key].addEventListener('blur', () => validateField(key));
+  fields[key].addEventListener('input', () => {
+    if (fields[key].classList.contains('is-invalid') || fields[key].classList.contains('is-valid')) validateField(key);
+  });
+});
+fields.message.addEventListener('input', () => { $('charNow').textContent = fields.message.value.length; });
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let valid = true;
+  Object.keys(fields).forEach(key => { if (!validateField(key)) valid = false; });
+  if (!valid) return;
+
+  const btn = $('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner-border spinner-border-sm"></span> <span>Mengirim...</span>`;
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.innerHTML = `<span class="material-symbols-rounded">send</span> <span>Kirim Pesan</span>`;
+    form.reset();
+    $('charNow').textContent = '0';
+    Object.values(fields).forEach(f => f.classList.remove('is-valid', 'is-invalid'));
+    showToast('Pesan berhasil dikirim! Terima kasih.');
+  }, 1200);
+});
+
+let toastTimer;
+function showToast(msg) {
+  const t = $('toast');
+  $('toastMsg').textContent = msg;
+  t.classList.remove('d-none');
+  t.classList.add('d-flex');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.classList.add('d-none'); t.classList.remove('d-flex'); }, 3000);
+}
+
+/* ---------- 11. Jalankan animasi yang menunggu scroll ---------- */
+observeReveal();
+$$('.progress-m3 > div').forEach(b => io.observe(b.parentElement.parentElement));
+$$('.counter').forEach(c => io.observe(c.closest('.reveal') || c));
+$('timeline').classList.add('reveal', 'rv-up');
+io.observe($('timeline'));
+
+/* Menu mobile tertutup saat link diklik */
+$$('#mobileMenu a').forEach(a => a.addEventListener('click', () => {
+  bootstrap.Offcanvas.getInstance($('mobileMenu'))?.hide();
+}));
+</script>
+</body>
+</html>
